@@ -1,7 +1,7 @@
 {
   "name": "webtoucher/omnipay-interkassa",
   "description": "InterKassa driver for the Omnipay payment processing library",
-  "keywords": ["interkassa", "gateway", "merchant", "omnipay", "pay", "payment", "payments",],
+  "keywords": ["interkassa", "gateway", "merchant", "omnipay", "pay", "payment", "payments"],
   "homepage": "https://github.com/webtoucher/omnipay-interkassa",
   "type": "library",
   "license": "BSD-3-Clause",
