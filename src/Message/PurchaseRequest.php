@@ -34,7 +34,7 @@ class PurchaseRequest extends AbstractRequest
         if ($failUrl = $this->getCancelUrl()) {
             $return['ik_fal_u'] = $failUrl;
             if ($failMethod = $this->getCancelMethod()) {
-                $return['ik_fal_m'] = $failUrl;
+                $return['ik_fal_m'] = $failMethod;
             }
         }
 
