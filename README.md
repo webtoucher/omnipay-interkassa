@@ -33,8 +33,45 @@ The following gateways are provided by this package:
 
 ```php
     $gateway = \Omnipay\Omnipay::create('InterKassa');
-    $gateway->setPurse('[CHECKOUT_ID]');
+    $gateway->setCheckoutId('[CHECKOUT_ID]');
     $gateway->setSignKey('[SIGN_KEY]');
+```
+
+The first step is prepairing data and redirecting to InterKassa. This is example of paiment via Privat 24.
+
+```php
+    $request = $gateway->purchase([
+        'amount' => $amount,
+        'currency' => 'UAH',
+        'transactionId' => $orderId,
+        'description' => "Some description (order $orderId)",
+        'interface' => 'web',
+        'action' => 'payway',
+        'payway' => 'privat24_liqpay_merchant3_uah',
+        'returnUrl' => "https://mydomain.com/payment/interkassa/success?order=$orderId",
+        'returnMethod' => 'GET',
+        'cancelUrl' => 'https://mydomain.com/payment/interkassa/cancel',
+        'cancelMethod' => 'GET',
+        'notifyUrl' => 'https://mydomain.com/payment/interkassa/notify',
+        'notifyMethod' => 'POST',
+    ]);
+    $response = $request->send();
+    if ($response->isRedirect()) {
+        $response->redirect();
+    }
+```
+
+There is the notify request handler.
+
+```php
+    $request = $gateway->completePurchase($_POST);
+    $response = $request->send();
+    $orderId = $response->getTransactionId(); // You can check this order and mark it as paid.
+    if ($response->isSuccessful()) {
+        // Your handler
+    } else {
+        // Your handler
+    }
 ```
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
